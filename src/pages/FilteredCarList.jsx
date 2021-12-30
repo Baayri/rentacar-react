@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Button, Card, Col, Row, Form } from 'react-bootstrap'
 import { Link, useHistory, useParams } from 'react-router-dom'
 import CarService from '../services/carService'
-import defaultImage from '../DefaultImage.png'
+import defaultImage from '../defaultCarImage.jpg'
 import CarLocationService from '../services/carLocationService'
 import { useFormik } from 'formik'
 
@@ -10,14 +10,14 @@ export default function FilteredCarList() {
 
     const { id } = useParams()
 
-    const [car, setCars] = useState("")
+    const [cars, setCars] = useState([])
     const [carLocations, setCarLocations] = useState([])
 
     const history = useHistory()
 
     const formik = useFormik({
         initialValues: {
-            carLocation: { id: "" },
+            carLocation: { id: "1" },
         },
 
         onSubmit: values => {
@@ -35,7 +35,7 @@ export default function FilteredCarList() {
 
     const carLocationOption = carLocations.map((carLocation, index) => ({
         key: index,
-        text: `${carLocation.location} Havalimanı`,
+        text: `${carLocation.location}`,
         value: carLocation.id,
     }))
 
@@ -81,27 +81,27 @@ export default function FilteredCarList() {
                 </Col>
                 <Col md={9}>
                     <Row xs={1} md={3} className="g-4">
+                        {
+                            cars.map(car => (
+                                <Col key={car.id}>
+                                    <Card text='light' border='danger' bg='dark'>
+                                        {car.image_url != null ? <Card.Img variant="top" src={car.image_url} style={{ maxWidth: '400px', maxHeight: '200px' }} className='rounded mx-auto d-block my-3' /> :
+                                            <Card.Img variant="top" src={defaultImage} style={{ maxWidth: '400px', maxHeight: '300px' }} className='rounded mx-auto d-block my-3' />
+                                        }
 
-
-                        <Col key={car.id}>
-                            <Card text='light' border='danger' bg='dark'>
-                                {car.image_url != null ? <Card.Img variant="top" src={car.image_url} style={{ maxWidth: '400px', maxHeight: '200px' }} className='rounded mx-auto d-block my-3' /> :
-                                    <Card.Img variant="top" src={defaultImage} style={{ maxWidth: '400px', maxHeight: '200px' }} className='rounded mx-auto d-block my-3' />
-                                }
-
-                                <Card.Body>
-                                    <Card.Title className='txt-center'>{car.brandName}</Card.Title>
-                                    <Card.Text className='txt-center'>
-                                        {car.colorName} - {car.modelYear}
-                                    </Card.Text>
-                                </Card.Body>
-                                <Card.Footer>
-                                    <Link to={`carDetails/${car.id}`}><Button variant='outline-light' className='float left'>Detay</Button></Link>
-                                </Card.Footer>
-                            </Card>
-                        </Col>
-
-
+                                        <Card.Body>
+                                            <Card.Title className='txt-center'>{car.brandName}</Card.Title>
+                                            <Card.Text className='txt-center'>
+                                                {car.colorName} - {car.modelYear}
+                                            </Card.Text>
+                                        </Card.Body>
+                                        <Card.Footer>
+                                            <Link to={`/carDetails/${car.id}`}><Button variant='outline-light' className='float left'>Detay</Button></Link>
+                                        </Card.Footer>
+                                    </Card>
+                                </Col>
+                            ))
+                        }
                     </Row>
                 </Col>
             </Row>

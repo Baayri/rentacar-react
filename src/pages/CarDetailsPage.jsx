@@ -78,6 +78,20 @@ export default function CarDetailsPage() {
                         <Col>
                             <Card text='dark' border='secondary' bg='light' className='my-2'>
                                 <Card.Header>
+                                    Şehir
+                                </Card.Header>
+                                <Card.Body>
+                                    {car.carLocation}
+                                </Card.Body>
+                            </Card>
+                        </Col>
+
+                    </Row>
+
+                    <Row className='ms-5 me-5'>
+                        <Col>
+                            <Card text='dark' border='secondary' bg='light' className='my-2'>
+                                <Card.Header>
                                     Açıklama
                                 </Card.Header>
                                 <Card.Body>

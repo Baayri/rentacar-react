@@ -9,6 +9,7 @@ export default function UserLogIn() {
     let userService = new UserService()
     let history = useHistory()
 
+
     let [user, setUser] = useState({})
 
     const formik = useFormik({
@@ -23,14 +24,13 @@ export default function UserLogIn() {
             console.log(user)
             if (user.message === 'Corporate') {
                 history.push(`corporateUser/${user.data.id}`)
+
             }
             else if (user.message === 'Individual') {
                 history.push(`/individualUser/${user.data.id}`)
             }
         },
     })
-
-
 
 
     return (

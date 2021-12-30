@@ -70,7 +70,7 @@ export default function AddCarPage() {
 
     return (
         <div>
-            <Card text='light' border='secondary' bg='dark' className='p-5'>
+            <Card text='light' border='secondary' bg='dark' className='p-4'>
                 <form onSubmit={formik.handleSubmit}>
                     <Row className="mb-3">
                         <Form.Group as={Col}>

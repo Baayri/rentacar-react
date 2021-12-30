@@ -15,7 +15,7 @@ export default function CarList() {
 
     const formik = useFormik({
         initialValues: {
-            carLocation: { id: "" },
+            carLocation: { id: "1" },
         },
 
         onSubmit: values => {
@@ -33,7 +33,7 @@ export default function CarList() {
 
     const carLocationOption = carLocations.map((carLocation, index) => ({
         key: index,
-        text: `${carLocation.location} Havalimanı`,
+        text: `${carLocation.location}`,
         value: carLocation.id,
     }))
 
@@ -49,7 +49,6 @@ export default function CarList() {
 
                             <Card.Body>
                                 <Form.Group as={Col}>
-                                    <Form.Label>Location</Form.Label>
                                     <Form.Select
                                         onChange={formik.handleChange}
                                         onBlur={formik.handleBlur}
@@ -71,7 +70,7 @@ export default function CarList() {
                                     variant='outline-dark' type='submit'
                                     onSubmit={formik.onSubmit}
                                 >
-                                    Submit
+                                    Filtrele
                                 </Button>
                             </Card.Footer>
                         </Card>
@@ -90,7 +89,7 @@ export default function CarList() {
                                         <Card.Body>
                                             <Card.Title className='txt-center'>{car.brandName}</Card.Title>
                                             <Card.Text className='txt-center'>
-                                                {car.colorName} - {car.modelYear}
+                                                {car.colorName} - {car.modelYear} - {car.carLocation}
                                             </Card.Text>
                                         </Card.Body>
                                         <Card.Footer>
