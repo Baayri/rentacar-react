@@ -14,6 +14,14 @@ export default function Navi() {
         history.push("/")
     }
 
+    function handleSignUp() {
+        history.push("/signUp")
+    }
+
+    function handleLogIn() {
+        history.push("/LogIn")
+    }
+
     return (
         <div>
             <Navbar bg="dark" variant="dark">
@@ -28,9 +36,8 @@ export default function Navi() {
                     </Nav>
                     <Nav>
                         <Nav.Item>
-                            <Button variant="outline-light" className='me-2'>Üye Ol</Button>
-                            <Button variant="outline-light" className='me-2'>Bireysel Üye Girişi</Button>
-                            <Button variant="outline-light" >Kurumsal Üye Girişi</Button>
+                            <Button onClick={handleSignUp} variant="outline-light" className='me-2'>Üye Ol</Button>
+                            <Button onClick={handleLogIn} variant="outline-light" >Üye Girişi</Button>
                         </Nav.Item>
                     </Nav>
                 </Container>

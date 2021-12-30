@@ -2,7 +2,6 @@ import { useFormik } from 'formik'
 import React, { useEffect, useState } from 'react'
 import { Button, Card, Col, Form, Row, Toast, ToastContainer } from 'react-bootstrap'
 import { useParams } from 'react-router-dom/cjs/react-router-dom.min'
-import CarLocationService from '../services/carLocationService'
 import CarService from '../services/carService'
 import RentalService from '../services/rentalService'
 
@@ -10,13 +9,14 @@ export default function AddRentalPage() {
 
     let { id } = useParams()
 
+    const [message, setMessage] = useState("")
+
     let rentalService = new RentalService()
 
     const formik = useFormik({
         initialValues: {
             car: { id: "" },
             user: { id: "4" },
-            carLocation: { id: "1" },
             rentDate: "",
             returnDate: "",
         },
@@ -24,28 +24,19 @@ export default function AddRentalPage() {
         onSubmit: values => {
             formik.values.car.id = parseInt(id)
             formik.values.user.id = parseInt(values.user.id)
-            formik.values.carLocation.id = parseInt(values.carLocation.id)
-            rentalService.add(values).then(result => console.log(result.config.data))
+            console.log(values)
+            rentalService.add(values).then(result => setMessage("Kiralama Eklendi"))
+                .catch(error => setMessage("Araç Kirada"))
         },
     })
 
     const [cars, setCars] = useState({})
-    const [carLocations, setCarLocations] = useState([])
     const [show, setShow] = useState(false);
 
     useEffect(() => {
         let carService = new CarService()
         carService.getDto(id).then(result => setCars(result.data))
-
-        let carLocationService = new CarLocationService()
-        carLocationService.getAll().then(result => setCarLocations(result.data))
     }, [id])
-
-    const carLocationOption = carLocations.map((carLocation, index) => ({
-        key: index,
-        text: `${carLocation.location} Havalimanı`,
-        value: carLocation.id,
-    }))
 
     return (
         <div>
@@ -55,6 +46,7 @@ export default function AddRentalPage() {
                         <Form.Group as={Col}>
                             <Form.Label>Car</Form.Label>
                             <Form.Control
+                                className='text-center'
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
                                 readOnly
@@ -67,23 +59,6 @@ export default function AddRentalPage() {
                             >
 
                             </Form.Control>
-                        </Form.Group>
-
-                        <Form.Group as={Col}>
-                            <Form.Label>Location</Form.Label>
-                            <Form.Select
-                                onChange={formik.handleChange}
-                                onBlur={formik.handleBlur}
-                                id='carLocation'
-                                name='carLocation.id'
-                                value={formik.values.carLocation.id}
-                            >
-                                {
-                                    carLocationOption.map((option) => {
-                                        return (<option key={option.key} value={option.value} >{option.text}</option>)
-                                    })
-                                }
-                            </Form.Select>
                         </Form.Group>
                     </Row>
 
@@ -131,7 +106,7 @@ export default function AddRentalPage() {
                     <Toast.Header>
                         <strong className="me-auto">Bildirim</strong>
                     </Toast.Header>
-                    <Toast.Body>Kiralama Eklendi</Toast.Body>
+                    <Toast.Body>{message}</Toast.Body>
                 </Toast>
             </ToastContainer>
         </div>

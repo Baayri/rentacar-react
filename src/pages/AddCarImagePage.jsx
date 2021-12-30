@@ -5,29 +5,29 @@ import CarImageService from '../services/carImageService'
 import CarService from '../services/carService'
 
 export default function AddCarImagePage() {
-
-    const [state, setState] = useState()
-
-    let fileSelectedHandler = (event) => {
-
-        setState(event.target.files[0])
-
-    };
-
     let carImageService = new CarImageService()
+
+    const [file, setFile] = useState({})
 
     const formik = useFormik({
         initialValues: {
-            car: { id: "" }
+            car: { id: "18" },
+            file: "",
         },
 
         onSubmit: values => {
             formik.values.car.id = parseInt(values.car.id)
-
-            console.log(formik.values.car.id, state)
-            carImageService.add(formik.values.car.id, state)
+            let data = new FormData()
+            data.append("file", file)
+            console.log(data.entries())
+            carImageService.add(10, data)
         },
     })
+
+    function selectedFile(event) {
+        console.log(event.target.files[0])
+        setFile(event.target.files[0])
+    }
 
 
     const [cars, setCars] = useState([])
@@ -70,11 +70,11 @@ export default function AddCarImagePage() {
                         </Form.Group>
 
                         <Form.Group as={Col}>
-                            <Form.Label>Brand</Form.Label>
+                            <Form.Label>File</Form.Label>
                             <Form.Control
                                 multiple
                                 type='file'
-                                onChange={fileSelectedHandler}
+                                onChange={selectedFile}
                                 onBlur={formik.handleBlur}
                                 id="file"
                                 name='file'

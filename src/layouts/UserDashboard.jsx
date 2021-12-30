@@ -5,7 +5,9 @@ import AddCarPage from '../pages/AddCarPage'
 import AddRentalPage from '../pages/AddRentalPage'
 import CarDetailsPage from '../pages/CarDetailsPage'
 import CarList from '../pages/CarList'
-import ImagePage from '../pages/ImagePage'
+import CorporateUserProfile from '../pages/CorporateUserProfile'
+import FilteredCarList from '../pages/FilteredCarList'
+import IndividualUserProfile from '../pages/IndividualUserProfile'
 
 export default function UserDashboard() {
     return (
@@ -15,7 +17,9 @@ export default function UserDashboard() {
             <Route exact path="/carDetails/:id" component={CarDetailsPage} />
             <Route exact path="/carDetails/addRental/:id" component={AddRentalPage} />
             <Route exact path="/addCarImage" component={AddCarImagePage} />
-            <Route exact path="/imagePage" component={ImagePage} />
+            <Route exact path="/corporateUser/:id" component={CorporateUserProfile} />
+            <Route exact path="/individualUser/:id" component={IndividualUserProfile} />
+            <Route exact path="/carLocation/:id" component={FilteredCarList} />
         </div>
     )
 }

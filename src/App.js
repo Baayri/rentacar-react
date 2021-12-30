@@ -4,7 +4,9 @@ import { Route } from 'react-router-dom';
 import './App.css';
 import AdminDashboard from './layouts/AdminDashboard';
 import Navi from './layouts/Navi';
+import SignUp from './layouts/SignUp';
 import UserDashboard from './layouts/UserDashboard';
+import UserLogIn from './layouts/Users/UserLogIn';
 
 function App() {
   return (
@@ -13,6 +15,8 @@ function App() {
       <Container className='ui main container'>
         <UserDashboard />
         <Route exact path="/admin" component={AdminDashboard} ></Route>
+        <Route exact path="/signUp" component={SignUp} ></Route>
+        <Route exact path="/LogIn" component={UserLogIn} ></Route>
       </Container>
     </div>
   );

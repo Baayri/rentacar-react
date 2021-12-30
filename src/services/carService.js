@@ -21,4 +21,12 @@ export default class CarService {
     getById(id) {
         return axios.get(`http://localhost:8080/api/cars/getById?id=${id}`)
     }
+
+    getByCarLocationId(id) {
+        return axios.get(`http://localhost:8080/api/cars/getByCarLocationId?id=${id}`)
+    }
+
+    getLocationDto(id) {
+        return axios.get(`http://localhost:8080/api/cars/getLocationDto?id=${id}`)
+    }
 }
